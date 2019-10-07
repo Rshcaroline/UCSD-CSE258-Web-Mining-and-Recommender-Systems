@@ -2,7 +2,7 @@
 @Author: Shihan Ran
 @Date: 2019-10-06 12:08:55
 @LastEditors: Shihan Ran
-@LastEditTime: 2019-10-06 16:24:37
+@LastEditTime: 2019-10-07 15:42:52
 @Email: rshcaroline@gmail.com
 @Software: VSCode
 @License: Copyright(C), UCSD
@@ -19,10 +19,15 @@
 # What is the distribution of ratings in the dataset? That is, how many 1-star, 2-star, 3-star (etc.) reviews are there? You may write out the values or include a simple plot (1 mark).
 
 #%%
+# ignore the warnings from Pandas
+import warnings
+warnings.filterwarnings("ignore")
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+# read data
 data = pd.read_csv('./Homework1/amazon_reviews_us_Gift_Card_v1_00.tsv', delimiter='\t').dropna()
 plt.hist(data['star_rating'], bins=[0,1,2,3,4,5,6],rwidth=0.8)
 plt.xticks(range(0, 7))
@@ -110,8 +115,9 @@ trainByRatio(0.9, data, featureNames, labelName)
 # set make a significant difference in testing performance? Comment on why it might or might not make
 # a significant difference in this instance (2 marks).
 
+
 #%%
-# To plot a graph, let's revise the function 
+# To plot a graph, let's revise the function slightly so that we can store the MSE in a list
 def myRegression(featureNames, labelName, data, MSEList):
     X, y = data[featureNames], data[labelName]
     theta, residuals, rank, s = np.linalg.lstsq(X, y)
@@ -123,16 +129,17 @@ def trainByRatio(ratio, data, featureNames, labelName, trainMSE, testMSE):
     test = data[int(len(data)*ratio):]
     # Training
     myRegression(featureNames, labelName, train, trainMSE)
-
     # Testing
     myRegression(featureNames, labelName, test, testMSE)
 
 trainMSE, testMSE = [], []
+# ratio from 5% to 95%, step by 5%
 ratios = [i/100 for i in list(range(5, 100, 5))]
 
 for ratio in ratios:
     trainByRatio(ratio, data, featureNames, labelName, trainMSE, testMSE)
 
+# plot a graph
 plt.plot(ratios, trainMSE, 'r^-', label='Train MSE')
 plt.plot(ratios, testMSE, 'g*-', label='Test MSE')
 plt.title('The Lasers in Three Conditions')
@@ -140,6 +147,23 @@ plt.xlabel('Ratio of Training data')
 plt.ylabel('MSE')
 plt.legend()
 plt.show()
+
+
+#%% [markdown]
+# # Task -- Classification
+# In this question we’ll alter the prediction from our regression task, so that we are now classifying whether a review is verified. Continue using the 90%/10% training and test sets you constructed previously, i.e., train on the training set and report the error/accuracy on the testing set.
+
+
+#%% [markdown]
+# ## Problem 8
+# First, let’s train a predictor that estimates whether a review is verified using the rating and the length: 
+#
+# p(review is verified) ≃ σ(θ0 + θ1 × [star rating] + θ2 × [review length])
+#
+# Train a logistic regressor to make the above prediction (you may use a logistic regression library with de- fault parameters, e.g. linear model.LogisticRegression() from sklearn). Report the classification accuracy of this predictor. Report also the proportion of labels that are positive (i.e., the proportion of reviews that are verified) and the proportion of predictions that are positive (1 mark).
+
+
+#%%
 
 
 #%%

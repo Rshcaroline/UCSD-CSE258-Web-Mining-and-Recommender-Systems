@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>regression</title>
+<title>homework1</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13113,6 +13113,26 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Change directory to VSCode workspace root so that relative path loads work correctly. Turn this addition off with the DataScience.changeDirOnImportExport setting</span>
+<span class="c1"># ms-python.python added</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="k">try</span><span class="p">:</span>
+	<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;..&#39;</span><span class="p">))</span>
+	<span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+<span class="k">except</span><span class="p">:</span>
+	<span class="k">pass</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13134,10 +13154,15 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ignore the warnings from Pandas</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
+<span class="c1"># read data</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./Homework1/amazon_reviews_us_Gift_Card_v1_00.tsv&#39;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;star_rating&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span><span class="n">rwidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
@@ -13189,7 +13214,7 @@ z
 "/>
    </g>
    <g id="patch_3">
-    <path clip-path="url(#pda34aa3554)" d="M 81.271307 228.14 
+    <path clip-path="url(#p538905407f)" d="M 81.271307 228.14 
 L 123.252498 228.14 
 L 123.252498 228.14 
 L 81.271307 228.14 
@@ -13197,7 +13222,7 @@ z
 " style="fill:#8dd3c7;"/>
    </g>
    <g id="patch_4">
-    <path clip-path="url(#pda34aa3554)" d="M 133.747796 228.14 
+    <path clip-path="url(#p538905407f)" d="M 133.747796 228.14 
 L 175.728987 228.14 
 L 175.728987 220.490489 
 L 133.747796 220.490489 
@@ -13205,7 +13230,7 @@ z
 " style="fill:#8dd3c7;"/>
    </g>
    <g id="patch_5">
-    <path clip-path="url(#pda34aa3554)" d="M 186.224285 228.14 
+    <path clip-path="url(#p538905407f)" d="M 186.224285 228.14 
 L 228.205476 228.14 
 L 228.205476 225.636173 
 L 186.224285 225.636173 
@@ -13213,7 +13238,7 @@ z
 " style="fill:#8dd3c7;"/>
    </g>
    <g id="patch_6">
-    <path clip-path="url(#pda34aa3554)" d="M 238.700774 228.14 
+    <path clip-path="url(#p538905407f)" d="M 238.700774 228.14 
 L 280.681965 228.14 
 L 280.681965 223.089011 
 L 238.700774 223.089011 
@@ -13221,7 +13246,7 @@ z
 " style="fill:#8dd3c7;"/>
    </g>
    <g id="patch_7">
-    <path clip-path="url(#pda34aa3554)" d="M 291.177263 228.14 
+    <path clip-path="url(#p538905407f)" d="M 291.177263 228.14 
 L 333.158454 228.14 
 L 333.158454 212.399598 
 L 291.177263 212.399598 
@@ -13229,7 +13254,7 @@ z
 " style="fill:#8dd3c7;"/>
    </g>
    <g id="patch_8">
-    <path clip-path="url(#pda34aa3554)" d="M 343.653752 228.14 
+    <path clip-path="url(#p538905407f)" d="M 343.653752 228.14 
 L 385.634943 228.14 
 L 385.634943 21.054286 
 L 343.653752 21.054286 
@@ -13242,10 +13267,10 @@ z
       <defs>
        <path d="M 0 0 
 L 0 3.5 
-" id="m45b7ab5134" style="stroke:#ffffff;stroke-width:0.8;"/>
+" id="mdb63db7106" style="stroke:#ffffff;stroke-width:0.8;"/>
       </defs>
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="76.023658" xlink:href="#m45b7ab5134" y="228.14"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="76.023658" xlink:href="#mdb63db7106" y="228.14"/>
       </g>
      </g>
      <g id="text_1">
@@ -13281,7 +13306,7 @@ z
     <g id="xtick_2">
      <g id="line2d_2">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="128.500147" xlink:href="#m45b7ab5134" y="228.14"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="128.500147" xlink:href="#mdb63db7106" y="228.14"/>
       </g>
      </g>
      <g id="text_2">
@@ -13309,7 +13334,7 @@ z
     <g id="xtick_3">
      <g id="line2d_3">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="180.976636" xlink:href="#m45b7ab5134" y="228.14"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="180.976636" xlink:href="#mdb63db7106" y="228.14"/>
       </g>
      </g>
      <g id="text_3">
@@ -13348,7 +13373,7 @@ z
     <g id="xtick_4">
      <g id="line2d_4">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="233.453125" xlink:href="#m45b7ab5134" y="228.14"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="233.453125" xlink:href="#mdb63db7106" y="228.14"/>
       </g>
      </g>
      <g id="text_4">
@@ -13395,7 +13420,7 @@ z
     <g id="xtick_5">
      <g id="line2d_5">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="285.929614" xlink:href="#m45b7ab5134" y="228.14"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="285.929614" xlink:href="#mdb63db7106" y="228.14"/>
       </g>
      </g>
      <g id="text_5">
@@ -13427,7 +13452,7 @@ z
     <g id="xtick_6">
      <g id="line2d_6">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="338.406103" xlink:href="#m45b7ab5134" y="228.14"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="338.406103" xlink:href="#mdb63db7106" y="228.14"/>
       </g>
      </g>
      <g id="text_6">
@@ -13466,7 +13491,7 @@ z
     <g id="xtick_7">
      <g id="line2d_7">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="390.882592" xlink:href="#m45b7ab5134" y="228.14"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="390.882592" xlink:href="#mdb63db7106" y="228.14"/>
       </g>
      </g>
      <g id="text_7">
@@ -13515,10 +13540,10 @@ z
       <defs>
        <path d="M 0 0 
 L -3.5 0 
-" id="m78b46447b7" style="stroke:#ffffff;stroke-width:0.8;"/>
+" id="m8d98212769" style="stroke:#ffffff;stroke-width:0.8;"/>
       </defs>
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="66.053125" xlink:href="#m78b46447b7" y="228.14"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="66.053125" xlink:href="#m8d98212769" y="228.14"/>
       </g>
      </g>
      <g id="text_8">
@@ -13531,7 +13556,7 @@ L -3.5 0
     <g id="ytick_2">
      <g id="line2d_9">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="66.053125" xlink:href="#m78b46447b7" y="196.03966"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="66.053125" xlink:href="#m8d98212769" y="196.03966"/>
       </g>
      </g>
      <g id="text_9">
@@ -13548,7 +13573,7 @@ L -3.5 0
     <g id="ytick_3">
      <g id="line2d_10">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="66.053125" xlink:href="#m78b46447b7" y="163.93932"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="66.053125" xlink:href="#m8d98212769" y="163.93932"/>
       </g>
      </g>
      <g id="text_10">
@@ -13565,7 +13590,7 @@ L -3.5 0
     <g id="ytick_4">
      <g id="line2d_11">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="66.053125" xlink:href="#m78b46447b7" y="131.83898"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="66.053125" xlink:href="#m8d98212769" y="131.83898"/>
       </g>
      </g>
      <g id="text_11">
@@ -13582,7 +13607,7 @@ L -3.5 0
     <g id="ytick_5">
      <g id="line2d_12">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="66.053125" xlink:href="#m78b46447b7" y="99.738639"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="66.053125" xlink:href="#m8d98212769" y="99.738639"/>
       </g>
      </g>
      <g id="text_12">
@@ -13640,7 +13665,7 @@ z
     <g id="ytick_6">
      <g id="line2d_13">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="66.053125" xlink:href="#m78b46447b7" y="67.638299"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="66.053125" xlink:href="#m8d98212769" y="67.638299"/>
       </g>
      </g>
      <g id="text_13">
@@ -13658,7 +13683,7 @@ z
     <g id="ytick_7">
      <g id="line2d_14">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="66.053125" xlink:href="#m78b46447b7" y="35.537959"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="66.053125" xlink:href="#m8d98212769" y="35.537959"/>
       </g>
      </g>
      <g id="text_14">
@@ -14005,7 +14030,7 @@ L 400.853125 10.7
   </g>
  </g>
  <defs>
-  <clipPath id="pda34aa3554">
+  <clipPath id="p538905407f">
    <rect height="217.44" width="334.8" x="66.053125" y="10.7"/>
   </clipPath>
  </defs>
@@ -14079,9 +14104,6 @@ L 400.853125 10.7
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Theta:  [ 4.84501720e+00  4.98738862e-02 -1.24542755e-03]
 MSE:  0.6508730403935653
-/Applications/anaconda3/lib/python3.7/site-packages/ipykernel_launcher.py:4: FutureWarning: `rcond` parameter will change to the default of machine precision times ``max(M, N)`` where M and N are the input matrix dimensions.
-To use the future default and silence this warning we advise to pass `rcond=None`, to keep using the old, explicitly pass `rcond=-1`.
-  after removing the cwd from sys.path.
 </pre>
 </div>
 </div>
@@ -14134,9 +14156,6 @@ To use the future default and silence this warning we advise to pass `rcond=None
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Theta:  [4.5781106  0.16796432]
 MSE:  0.6854213460544826
-/Applications/anaconda3/lib/python3.7/site-packages/ipykernel_launcher.py:4: FutureWarning: `rcond` parameter will change to the default of machine precision times ``max(M, N)`` where M and N are the input matrix dimensions.
-To use the future default and silence this warning we advise to pass `rcond=None`, to keep using the old, explicitly pass `rcond=-1`.
-  after removing the cwd from sys.path.
 </pre>
 </div>
 </div>
@@ -14206,9 +14225,6 @@ MSE:  0.6555052667672866
 ================ Testing ================
 Theta:  [ 4.71570729 -0.1220213 ]
 MSE:  0.924076433012882
-/Applications/anaconda3/lib/python3.7/site-packages/ipykernel_launcher.py:4: FutureWarning: `rcond` parameter will change to the default of machine precision times ``max(M, N)`` where M and N are the input matrix dimensions.
-To use the future default and silence this warning we advise to pass `rcond=None`, to keep using the old, explicitly pass `rcond=-1`.
-  after removing the cwd from sys.path.
 </pre>
 </div>
 </div>
@@ -14234,7 +14250,7 @@ To use the future default and silence this warning we advise to pass `rcond=None
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># To plot a graph, let&#39;s revise the function </span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># To plot a graph, let&#39;s revise the function slightly so that we can store the MSE in a list</span>
 <span class="k">def</span> <span class="nf">myRegression</span><span class="p">(</span><span class="n">featureNames</span><span class="p">,</span> <span class="n">labelName</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">MSEList</span><span class="p">):</span>
     <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">featureNames</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="n">labelName</span><span class="p">]</span>
     <span class="n">theta</span><span class="p">,</span> <span class="n">residuals</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -14246,16 +14262,17 @@ To use the future default and silence this warning we advise to pass `rcond=None
     <span class="n">test</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">*</span><span class="n">ratio</span><span class="p">):]</span>
     <span class="c1"># Training</span>
     <span class="n">myRegression</span><span class="p">(</span><span class="n">featureNames</span><span class="p">,</span> <span class="n">labelName</span><span class="p">,</span> <span class="n">train</span><span class="p">,</span> <span class="n">trainMSE</span><span class="p">)</span>
-
     <span class="c1"># Testing</span>
     <span class="n">myRegression</span><span class="p">(</span><span class="n">featureNames</span><span class="p">,</span> <span class="n">labelName</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="n">testMSE</span><span class="p">)</span>
 
 <span class="n">trainMSE</span><span class="p">,</span> <span class="n">testMSE</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="c1"># ratio from 5% to 95%, step by 5%</span>
 <span class="n">ratios</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">/</span><span class="mi">100</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">))]</span>
 
 <span class="k">for</span> <span class="n">ratio</span> <span class="ow">in</span> <span class="n">ratios</span><span class="p">:</span>
     <span class="n">trainByRatio</span><span class="p">(</span><span class="n">ratio</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">featureNames</span><span class="p">,</span> <span class="n">labelName</span><span class="p">,</span> <span class="n">trainMSE</span><span class="p">,</span> <span class="n">testMSE</span><span class="p">)</span>
 
+<span class="c1"># plot a graph</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ratios</span><span class="p">,</span> <span class="n">trainMSE</span><span class="p">,</span> <span class="s1">&#39;r^-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Train MSE&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ratios</span><span class="p">,</span> <span class="n">testMSE</span><span class="p">,</span> <span class="s1">&#39;g*-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test MSE&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;The Lasers in Three Conditions&#39;</span><span class="p">)</span>
@@ -14272,19 +14289,6 @@ To use the future default and silence this warning we advise to pass `rcond=None
 <div class="output_wrapper">
 <div class="output">
 
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/Applications/anaconda3/lib/python3.7/site-packages/ipykernel_launcher.py:4: FutureWarning: `rcond` parameter will change to the default of machine precision times ``max(M, N)`` where M and N are the input matrix dimensions.
-To use the future default and silence this warning we advise to pass `rcond=None`, to keep using the old, explicitly pass `rcond=-1`.
-  after removing the cwd from sys.path.
-</pre>
-</div>
-</div>
 
 <div class="output_area">
 
@@ -14327,10 +14331,10 @@ z
       <defs>
        <path d="M 0 0 
 L 0 3.5 
-" id="m83a9bd8d9e" style="stroke:#ffffff;stroke-width:0.8;"/>
+" id="m01329a1db0" style="stroke:#ffffff;stroke-width:0.8;"/>
       </defs>
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="109.726705" xlink:href="#m83a9bd8d9e" y="239.758125"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="109.726705" xlink:href="#m01329a1db0" y="239.758125"/>
       </g>
      </g>
      <g id="text_1">
@@ -14398,7 +14402,7 @@ z
     <g id="xtick_2">
      <g id="line2d_2">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="177.363068" xlink:href="#m83a9bd8d9e" y="239.758125"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="177.363068" xlink:href="#m01329a1db0" y="239.758125"/>
       </g>
      </g>
      <g id="text_2">
@@ -14432,7 +14436,7 @@ z
     <g id="xtick_3">
      <g id="line2d_3">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="244.999432" xlink:href="#m83a9bd8d9e" y="239.758125"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="244.999432" xlink:href="#m01329a1db0" y="239.758125"/>
       </g>
      </g>
      <g id="text_3">
@@ -14479,7 +14483,7 @@ z
     <g id="xtick_4">
      <g id="line2d_4">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="312.635795" xlink:href="#m83a9bd8d9e" y="239.758125"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="312.635795" xlink:href="#m01329a1db0" y="239.758125"/>
       </g>
      </g>
      <g id="text_4">
@@ -14804,10 +14808,10 @@ z
       <defs>
        <path d="M 0 0 
 L -3.5 0 
-" id="ma38c4dc5f5" style="stroke:#ffffff;stroke-width:0.8;"/>
+" id="mf72012bb6f" style="stroke:#ffffff;stroke-width:0.8;"/>
       </defs>
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="43.78125" xlink:href="#ma38c4dc5f5" y="222.213325"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="43.78125" xlink:href="#mf72012bb6f" y="222.213325"/>
       </g>
      </g>
      <g id="text_6">
@@ -14822,7 +14826,7 @@ L -3.5 0
     <g id="ytick_2">
      <g id="line2d_6">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="43.78125" xlink:href="#ma38c4dc5f5" y="191.923736"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="43.78125" xlink:href="#mf72012bb6f" y="191.923736"/>
       </g>
      </g>
      <g id="text_7">
@@ -14848,7 +14852,7 @@ z
     <g id="ytick_3">
      <g id="line2d_7">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="43.78125" xlink:href="#ma38c4dc5f5" y="161.634148"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="43.78125" xlink:href="#mf72012bb6f" y="161.634148"/>
       </g>
      </g>
      <g id="text_8">
@@ -14863,7 +14867,7 @@ z
     <g id="ytick_4">
      <g id="line2d_8">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="43.78125" xlink:href="#ma38c4dc5f5" y="131.344559"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="43.78125" xlink:href="#mf72012bb6f" y="131.344559"/>
       </g>
      </g>
      <g id="text_9">
@@ -14910,7 +14914,7 @@ z
     <g id="ytick_5">
      <g id="line2d_9">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="43.78125" xlink:href="#ma38c4dc5f5" y="101.054971"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="43.78125" xlink:href="#mf72012bb6f" y="101.054971"/>
       </g>
      </g>
      <g id="text_10">
@@ -14940,7 +14944,7 @@ z
     <g id="ytick_6">
      <g id="line2d_10">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="43.78125" xlink:href="#ma38c4dc5f5" y="70.765382"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="43.78125" xlink:href="#mf72012bb6f" y="70.765382"/>
       </g>
      </g>
      <g id="text_11">
@@ -14955,7 +14959,7 @@ z
     <g id="ytick_7">
      <g id="line2d_11">
       <g>
-       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="43.78125" xlink:href="#ma38c4dc5f5" y="40.475794"/>
+       <use style="fill:#ffffff;stroke:#ffffff;stroke-width:0.8;" x="43.78125" xlink:href="#mf72012bb6f" y="40.475794"/>
       </g>
      </g>
      <g id="text_12">
@@ -15039,7 +15043,7 @@ z
     </g>
    </g>
    <g id="line2d_12">
-    <path clip-path="url(#p67252b21ce)" d="M 58.999432 192.188517 
+    <path clip-path="url(#p528d1d1e7a)" d="M 58.999432 192.188517 
 L 75.908523 184.553623 
 L 92.817614 196.823049 
 L 109.726705 215.740538 
@@ -15064,32 +15068,32 @@ L 363.363068 205.562656
 L -3 3 
 L 3 3 
 z
-" id="m0b806d82d0" style="stroke:#ff0000;stroke-linejoin:miter;"/>
+" id="m98484dc535" style="stroke:#ff0000;stroke-linejoin:miter;"/>
     </defs>
-    <g clip-path="url(#p67252b21ce)">
-     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="58.999432" xlink:href="#m0b806d82d0" y="192.188517"/>
-     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="75.908523" xlink:href="#m0b806d82d0" y="184.553623"/>
-     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="92.817614" xlink:href="#m0b806d82d0" y="196.823049"/>
-     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="109.726705" xlink:href="#m0b806d82d0" y="215.740538"/>
-     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="126.635795" xlink:href="#m0b806d82d0" y="222.952099"/>
-     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="143.544886" xlink:href="#m0b806d82d0" y="225.437436"/>
-     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="160.453977" xlink:href="#m0b806d82d0" y="223.596511"/>
-     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="177.363068" xlink:href="#m0b806d82d0" y="225.777869"/>
-     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="194.272159" xlink:href="#m0b806d82d0" y="229.874489"/>
-     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="211.18125" xlink:href="#m0b806d82d0" y="227.046604"/>
-     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="228.090341" xlink:href="#m0b806d82d0" y="223.680282"/>
-     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="244.999432" xlink:href="#m0b806d82d0" y="218.705013"/>
-     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="261.908523" xlink:href="#m0b806d82d0" y="210.771521"/>
-     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="278.817614" xlink:href="#m0b806d82d0" y="210.228857"/>
-     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="295.726705" xlink:href="#m0b806d82d0" y="209.892565"/>
-     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="312.635795" xlink:href="#m0b806d82d0" y="210.87179"/>
-     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="329.544886" xlink:href="#m0b806d82d0" y="209.141777"/>
-     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="346.453977" xlink:href="#m0b806d82d0" y="205.401008"/>
-     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="363.363068" xlink:href="#m0b806d82d0" y="205.562656"/>
+    <g clip-path="url(#p528d1d1e7a)">
+     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="58.999432" xlink:href="#m98484dc535" y="192.188517"/>
+     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="75.908523" xlink:href="#m98484dc535" y="184.553623"/>
+     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="92.817614" xlink:href="#m98484dc535" y="196.823049"/>
+     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="109.726705" xlink:href="#m98484dc535" y="215.740538"/>
+     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="126.635795" xlink:href="#m98484dc535" y="222.952099"/>
+     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="143.544886" xlink:href="#m98484dc535" y="225.437436"/>
+     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="160.453977" xlink:href="#m98484dc535" y="223.596511"/>
+     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="177.363068" xlink:href="#m98484dc535" y="225.777869"/>
+     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="194.272159" xlink:href="#m98484dc535" y="229.874489"/>
+     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="211.18125" xlink:href="#m98484dc535" y="227.046604"/>
+     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="228.090341" xlink:href="#m98484dc535" y="223.680282"/>
+     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="244.999432" xlink:href="#m98484dc535" y="218.705013"/>
+     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="261.908523" xlink:href="#m98484dc535" y="210.771521"/>
+     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="278.817614" xlink:href="#m98484dc535" y="210.228857"/>
+     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="295.726705" xlink:href="#m98484dc535" y="209.892565"/>
+     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="312.635795" xlink:href="#m98484dc535" y="210.87179"/>
+     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="329.544886" xlink:href="#m98484dc535" y="209.141777"/>
+     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="346.453977" xlink:href="#m98484dc535" y="205.401008"/>
+     <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="363.363068" xlink:href="#m98484dc535" y="205.562656"/>
     </g>
    </g>
    <g id="line2d_13">
-    <path clip-path="url(#p67252b21ce)" d="M 58.999432 196.641775 
+    <path clip-path="url(#p528d1d1e7a)" d="M 58.999432 196.641775 
 L 75.908523 197.876068 
 L 92.817614 196.670678 
 L 109.726705 191.936198 
@@ -15121,28 +15125,28 @@ L 1.089814 0.354102
 L 2.85317 -0.927051 
 L 0.673542 -0.927051 
 z
-" id="ma524dacbe7" style="stroke:#008000;stroke-linejoin:bevel;"/>
+" id="m6b38cd66ed" style="stroke:#008000;stroke-linejoin:bevel;"/>
     </defs>
-    <g clip-path="url(#p67252b21ce)">
-     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="58.999432" xlink:href="#ma524dacbe7" y="196.641775"/>
-     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="75.908523" xlink:href="#ma524dacbe7" y="197.876068"/>
-     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="92.817614" xlink:href="#ma524dacbe7" y="196.670678"/>
-     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="109.726705" xlink:href="#ma524dacbe7" y="191.936198"/>
-     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="126.635795" xlink:href="#ma524dacbe7" y="187.969624"/>
-     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="143.544886" xlink:href="#ma524dacbe7" y="184.544549"/>
-     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="160.453977" xlink:href="#ma524dacbe7" y="182.725126"/>
-     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="177.363068" xlink:href="#ma524dacbe7" y="178.045135"/>
-     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="194.272159" xlink:href="#ma524dacbe7" y="170.675375"/>
-     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="211.18125" xlink:href="#ma524dacbe7" y="167.608799"/>
-     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="228.090341" xlink:href="#ma524dacbe7" y="165.106243"/>
-     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="244.999432" xlink:href="#ma524dacbe7" y="164.967317"/>
-     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="261.908523" xlink:href="#ma524dacbe7" y="171.940503"/>
-     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="278.817614" xlink:href="#ma524dacbe7" y="166.697735"/>
-     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="295.726705" xlink:href="#ma524dacbe7" y="159.277588"/>
-     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="312.635795" xlink:href="#ma524dacbe7" y="143.008268"/>
-     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="329.544886" xlink:href="#ma524dacbe7" y="131.72906"/>
-     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="346.453977" xlink:href="#ma524dacbe7" y="124.051907"/>
-     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="363.363068" xlink:href="#ma524dacbe7" y="32.201761"/>
+    <g clip-path="url(#p528d1d1e7a)">
+     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="58.999432" xlink:href="#m6b38cd66ed" y="196.641775"/>
+     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="75.908523" xlink:href="#m6b38cd66ed" y="197.876068"/>
+     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="92.817614" xlink:href="#m6b38cd66ed" y="196.670678"/>
+     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="109.726705" xlink:href="#m6b38cd66ed" y="191.936198"/>
+     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="126.635795" xlink:href="#m6b38cd66ed" y="187.969624"/>
+     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="143.544886" xlink:href="#m6b38cd66ed" y="184.544549"/>
+     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="160.453977" xlink:href="#m6b38cd66ed" y="182.725126"/>
+     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="177.363068" xlink:href="#m6b38cd66ed" y="178.045135"/>
+     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="194.272159" xlink:href="#m6b38cd66ed" y="170.675375"/>
+     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="211.18125" xlink:href="#m6b38cd66ed" y="167.608799"/>
+     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="228.090341" xlink:href="#m6b38cd66ed" y="165.106243"/>
+     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="244.999432" xlink:href="#m6b38cd66ed" y="164.967317"/>
+     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="261.908523" xlink:href="#m6b38cd66ed" y="171.940503"/>
+     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="278.817614" xlink:href="#m6b38cd66ed" y="166.697735"/>
+     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="295.726705" xlink:href="#m6b38cd66ed" y="159.277588"/>
+     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="312.635795" xlink:href="#m6b38cd66ed" y="143.008268"/>
+     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="329.544886" xlink:href="#m6b38cd66ed" y="131.72906"/>
+     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="346.453977" xlink:href="#m6b38cd66ed" y="124.051907"/>
+     <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="363.363068" xlink:href="#m6b38cd66ed" y="32.201761"/>
     </g>
    </g>
    <g id="patch_3">
@@ -15326,7 +15330,7 @@ L 72.78125 35.416562
     </g>
     <g id="line2d_15">
      <g>
-      <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="62.78125" xlink:href="#m0b806d82d0" y="35.416562"/>
+      <use style="fill:#ff0000;stroke:#ff0000;stroke-linejoin:miter;" x="62.78125" xlink:href="#m98484dc535" y="35.416562"/>
      </g>
     </g>
     <g id="text_15">
@@ -15350,7 +15354,7 @@ L 72.78125 50.094687
     </g>
     <g id="line2d_17">
      <g>
-      <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="62.78125" xlink:href="#ma524dacbe7" y="50.094687"/>
+      <use style="fill:#008000;stroke:#008000;stroke-linejoin:bevel;" x="62.78125" xlink:href="#m6b38cd66ed" y="50.094687"/>
      </g>
     </g>
     <g id="text_16">
@@ -15370,7 +15374,7 @@ L 72.78125 50.094687
   </g>
  </g>
  <defs>
-  <clipPath id="p67252b21ce">
+  <clipPath id="p528d1d1e7a">
    <rect height="217.44" width="334.8" x="43.78125" y="22.318125"/>
   </clipPath>
  </defs>
