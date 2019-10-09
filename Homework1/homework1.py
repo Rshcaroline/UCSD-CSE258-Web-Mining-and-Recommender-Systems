@@ -2,7 +2,7 @@
 @Author: Shihan Ran
 @Date: 2019-10-06 12:08:55
 @LastEditors: Shihan Ran
-@LastEditTime: 2019-10-07 15:42:52
+@LastEditTime: 2019-10-07 16:21:54
 @Email: rshcaroline@gmail.com
 @Software: VSCode
 @License: Copyright(C), UCSD
@@ -90,17 +90,24 @@ myRegression(featureNames, labelName, data)
 
 
 #%%
+def myRegression(featureNames, labelName, dataTrain, dataTest):
+    X, y = dataTrain[featureNames], dataTrain[labelName]
+    theta, residuals, rank, s = np.linalg.lstsq(X, y)
+    print("================ Training ================")
+    MSE = ((y - np.dot(X, theta))**2).mean()
+    print("Theta: ", theta)
+    print("MSE: ", MSE)
+    print("================ Testing ================")
+    X, y = dataTest[featureNames], dataTest[labelName]
+    MSE = ((y - np.dot(X, theta))**2).mean()
+    print("Theta: ", theta)
+    print("MSE: ", MSE)
+
 def trainByRatio(ratio, data, featureNames, labelName):
     train = data[:int(len(data)*ratio)]
     test = data[int(len(data)*ratio):]
-    # Training
     print("================ For ratio ", ratio, "================")
-    print("================ Training ================")
-    myRegression(featureNames, labelName, train)
-
-    # Testing
-    print("================ Testing ================")
-    myRegression(featureNames, labelName, test)
+    myRegression(featureNames, labelName, train, test)
     
 
 #%%
@@ -118,19 +125,21 @@ trainByRatio(0.9, data, featureNames, labelName)
 
 #%%
 # To plot a graph, let's revise the function slightly so that we can store the MSE in a list
-def myRegression(featureNames, labelName, data, MSEList):
-    X, y = data[featureNames], data[labelName]
+def myRegression(featureNames, labelName, dataTrain, dataTest, trainMSE, testMSE):
+    # Training
+    X, y = dataTrain[featureNames], dataTrain[labelName]
     theta, residuals, rank, s = np.linalg.lstsq(X, y)
     MSE = ((y - np.dot(X, theta))**2).mean()
-    MSEList.append(MSE)
+    trainMSE.append(MSE)
+    # Testing
+    X, y = dataTest[featureNames], dataTest[labelName]
+    MSE = ((y - np.dot(X, theta))**2).mean()
+    testMSE.append(MSE)
 
 def trainByRatio(ratio, data, featureNames, labelName, trainMSE, testMSE):
     train = data[:int(len(data)*ratio)]
     test = data[int(len(data)*ratio):]
-    # Training
-    myRegression(featureNames, labelName, train, trainMSE)
-    # Testing
-    myRegression(featureNames, labelName, test, testMSE)
+    myRegression(featureNames, labelName, train, test, trainMSE, testMSE)
 
 trainMSE, testMSE = [], []
 # ratio from 5% to 95%, step by 5%
@@ -162,6 +171,50 @@ plt.show()
 #
 # Train a logistic regressor to make the above prediction (you may use a logistic regression library with de- fault parameters, e.g. linear model.LogisticRegression() from sklearn). Report the classification accuracy of this predictor. Report also the proportion of labels that are positive (i.e., the proportion of reviews that are verified) and the proportion of predictions that are positive (1 mark).
 
+
+#%%
+# Define My Own Classification
+from sklearn.linear_model import LogisticRegression
+
+def myClassification(featureNames, labelName, dataTrain, dataTest):
+    X, y = dataTrain[featureNames], dataTrain[labelName]
+    clf = LogisticRegression().fit(X, y)
+    print("================ Training ================")
+    print("Accuracy: ", clf.score(X, y))
+    print("================ Testing ================")
+    X, y = dataTest[featureNames], dataTest[labelName]
+    print("Accuracy: ", clf.score(X, y))
+
+def trainByRatio(ratio, data, featureNames, labelName):
+    train = data[:int(len(data)*ratio)]
+    test = data[int(len(data)*ratio):]
+    print("================ For ratio ", ratio, "================")
+    myClassification(featureNames, labelName, train, test)
+
+featureNames = ['theta_zero', 'star_rating', 'review_body_length']
+labelName = 'verified_purchase_int'
+ratio = 0.9
+trainByRatio(ratio, data, featureNames, labelName)
+
+
+#%% [markdown]
+# ## Problem 9
+# Considering same prediction problem as above, can you come up with a more accurate predictor (e.g. using features from the text, timestamp, etc.)? Write down the feature vector you design, and report its train/test accuracy (1 mark).
+
+
+#%%
+# Let's analyze our dataset first
+print(data['marketplace'].unique())
+print(data['product_category'].unique())
+print(data['vine'].unique())
+
+
+#%%
+plt.hist(data['total_votes'], log=True, color='y',rwidth=0.8, label='Total Votes')
+plt.hist(data['helpful_votes'], log=True, rwidth=0.8, label='Helpful Votes')
+plt.ylabel('Number of votes')
+plt.legend()
+plt.show()
 
 #%%
 
