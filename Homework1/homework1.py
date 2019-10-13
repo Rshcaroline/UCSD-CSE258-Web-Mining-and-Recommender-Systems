@@ -2,7 +2,7 @@
 @Author: Shihan Ran
 @Date: 2019-10-06 12:08:55
 @LastEditors: Shihan Ran
-@LastEditTime: 2019-10-07 16:21:54
+@LastEditTime: 2019-10-13 13:29:02
 @Email: rshcaroline@gmail.com
 @Software: VSCode
 @License: Copyright(C), UCSD
@@ -27,13 +27,30 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-# read data
-data = pd.read_csv('./Homework1/amazon_reviews_us_Gift_Card_v1_00.tsv', delimiter='\t').dropna()
-plt.hist(data['star_rating'], bins=[0,1,2,3,4,5,6],rwidth=0.8)
+# read data and drop NA
+data = pd.read_csv('./Homework1/amazon_reviews_us_Gift_Card_v1_00.tsv', delimiter='\t')
+print("# of Rows before drop NA value: ")
+print(len(data))
+data = data.dropna()
+print("# of Rows after drop NA value: ")
+print(len(data))
+
+#%%
+plt.hist(data['star_rating'], bins=[0,1,2,3,4,5,6], rwidth=0.8)
 plt.xticks(range(0, 7))
 plt.ylabel('Number of rating')
+plt.title("Distribution of Star Ratings")
 plt.show()
 
+
+#%%
+for i in range(1, 6):
+    print("The percent of %1d-star: %.1f%%" % (i, (len(data[data['star_rating']==i])/len(data)*100)))
+
+#%% [markdown]
+# We can see from the above plot and printout that most of ratings are 5-star (87%) while the least rating is 2-star (only 1%), which means this dataset is extremely unbalanced.
+# 
+# The dataset only has 6 rows containing NA value and we decide to remove them from the data.
 
 #%% [markdown]
 # ## Problem 3
@@ -57,8 +74,9 @@ def myRegression(featureNames, labelName, data):
     X, y = data[featureNames], data[labelName]
     theta, residuals, rank, s = np.linalg.lstsq(X, y)
     MSE = ((y - np.dot(X, theta))**2).mean()
-    print("Theta: ", theta)
-    print("MSE: ", MSE)
+    for i in range(len(theta)):
+        print("Theta%1d: %.5f" % (i, theta[i]))
+    print("MSE: %.3f" % MSE)
 
 featureNames = ['theta_zero', 'verified_purchase_int', 'review_body_length']
 labelName = 'star_rating'
@@ -66,7 +84,17 @@ myRegression(featureNames, labelName, data)
 
 
 #%% [markdown]
-# Explanation.
+# We first convert "verified_purchase" from "Y" and "N" to "1" and "0" and calculate the length of "review body" in character as features.
+# 
+# After define our own regression, we got three theta values $\theta_0, \theta_1, \theta_2$ and MSE.
+# 
+# $\theta_0$ is a bias term, which means if there is no "verified_purchase" and "review_body" features, the predicted value of rating should be $\theta_0$.
+# 
+# $\theta_1$ means the relationship between "verified_purchase" and "star_rating". If the purchase is verified, then the rating will increase by  $\theta_1$. 
+# 
+# $\theta_2$ means the relationship between the length of "review_body" in character and "star_rating". If the length increase by 1, then the rating will increase by  $\theta_2$. 
+#
+# In this case, an interesting fact is that $\theta_2$ is a negative number, which means the more characters you write in your review, the lower rating you will rate this product. This fact is fun but reasonable since people will tend to write some bad reviews to complain when they are unsatisfied than to write some fancy words to praise when they are satisfied.
 
 
 #%% [markdown]
@@ -85,6 +113,14 @@ myRegression(featureNames, labelName, data)
 
 
 #%% [markdown]
+# After removing the length of "review_body" features, compared with problem 3, the value of $\theta_0$ decreases from 4.845 to 4.578,  and $\theta_1$ increases from 0.0499 to 0.1679. 
+# 
+# For $\theta_0$, this time it can be interpreted as the predicted value of rating score when the "verified_purchase" feature is 0. Compared with problem 3, as we know, if the length of "review_body" increases, the rating should decrease. So $\theta_0$ in problem 3 should be bigger than the one in problem 4 since the length of "review_body" is always bigger than or equal to 0 (so that it can offset the decrease aroused by review body).
+# 
+# For $\theta_1$, it still means the relationship between "verified_purchase" and "star_rating". If the purchase is verified, then the rating will increase by  $\theta_1$. But, as we noticed, if "verified_purchase" is 1, the predicted rating is $\theta_0+\theta_1$, and since $\theta_0$ decreases a lot, to compensate for this, $\theta_1$ should increase accordingly. 
+
+
+#%% [markdown]
 # ## Problem 5
 # Split the data into two fractions – the first 90% for training, and the remaining 10% testing (based on the order they appear in the file). Train the same model as above on the training set only. What is the model’s MSE on the training and on the test set (1 mark)?
 
@@ -95,13 +131,13 @@ def myRegression(featureNames, labelName, dataTrain, dataTest):
     theta, residuals, rank, s = np.linalg.lstsq(X, y)
     print("================ Training ================")
     MSE = ((y - np.dot(X, theta))**2).mean()
-    print("Theta: ", theta)
-    print("MSE: ", MSE)
+    for i in range(len(theta)):
+        print("Theta%1d: %.5f" % (i, theta[i]))
+    print("MSE: %.3f" % MSE)
     print("================ Testing ================")
     X, y = dataTest[featureNames], dataTest[labelName]
     MSE = ((y - np.dot(X, theta))**2).mean()
-    print("Theta: ", theta)
-    print("MSE: ", MSE)
+    print("MSE: %.3f" % MSE)
 
 def trainByRatio(ratio, data, featureNames, labelName):
     train = data[:int(len(data)*ratio)]
@@ -151,9 +187,39 @@ for ratio in ratios:
 # plot a graph
 plt.plot(ratios, trainMSE, 'r^-', label='Train MSE')
 plt.plot(ratios, testMSE, 'g*-', label='Test MSE')
-plt.title('The Lasers in Three Conditions')
+plt.title('MSE with different ratio of Train-Test split')
 plt.xlabel('Ratio of Training data')
 plt.ylabel('MSE')
+plt.legend()
+plt.show()
+
+
+#%% [markdown]
+# Yes. As we can see from the plot, the size of the training set makes a significant difference in testing performance. As we increase the training size, however, the test performance decreases. This isn't normal and may be due to the extremely unbalanced nature of this dataset. The star rating label may vary a lot between the training set and testing set as the ratio increases. 
+#
+# The following plot proves our thought.
+
+
+#%%
+def calculatePortionOfFiveStars(ratio, data, trainPortion, testPortion):
+    train = data[:int(len(data)*ratio)]
+    test = data[int(len(data)*ratio):]
+    trainPortion.append(len(train[train['star_rating']==i])/len(train)*100)
+    testPortion.append(len(test[test['star_rating']==i])/len(test)*100)
+
+trainPortion, testPortion = [], []
+# ratio from 5% to 95%, step by 5%
+ratios = [i/100 for i in list(range(5, 100, 5))]
+
+for ratio in ratios:
+    calculatePortionOfFiveStars(ratio, data, trainPortion, testPortion)
+
+# plot a graph
+plt.plot(ratios, trainPortion, 'r^-', label='Training data')
+plt.plot(ratios, testPortion, 'g*-', label='Testing data')
+plt.title('%% of 5-star ratings in Training/Testing data as ratio varies')
+plt.xlabel('Ratio')
+plt.ylabel('%% of 5-star ratings')
 plt.legend()
 plt.show()
 
@@ -169,7 +235,7 @@ plt.show()
 #
 # p(review is verified) ≃ σ(θ0 + θ1 × [star rating] + θ2 × [review length])
 #
-# Train a logistic regressor to make the above prediction (you may use a logistic regression library with de- fault parameters, e.g. linear model.LogisticRegression() from sklearn). Report the classification accuracy of this predictor. Report also the proportion of labels that are positive (i.e., the proportion of reviews that are verified) and the proportion of predictions that are positive (1 mark).
+# Train a logistic regressor to make the above prediction (you may use a logistic regression library with default parameters, e.g. linear model.LogisticRegression() from sklearn). Report the classification accuracy of this predictor. Report also the proportion of labels that are positive (i.e., the proportion of reviews that are verified) and the proportion of predictions that are positive (1 mark).
 
 
 #%%
@@ -179,11 +245,17 @@ from sklearn.linear_model import LogisticRegression
 def myClassification(featureNames, labelName, dataTrain, dataTest):
     X, y = dataTrain[featureNames], dataTrain[labelName]
     clf = LogisticRegression().fit(X, y)
+    y_ = clf.predict(X)
     print("================ Training ================")
     print("Accuracy: ", clf.score(X, y))
+    print("Proportion of reviews that are verified: %.2f%%" % (len(dataTrain[dataTrain[featureNames]==1])/len(dataTrain)*100))
+    print("Proportion of predictions that are positive: %.2f%%" % (np.mean(y_==1)*100))
     print("================ Testing ================")
     X, y = dataTest[featureNames], dataTest[labelName]
+    y_ = clf.predict(X)
     print("Accuracy: ", clf.score(X, y))
+    print("Proportion of reviews that are verified: %.2f%%" % (len(dataTest[dataTest[featureNames]==1])/len(dataTest)*100))
+    print("Proportion of predictions that are positive: %.2f%%" % (np.mean(y_==1)*100))
 
 def trainByRatio(ratio, data, featureNames, labelName):
     train = data[:int(len(data)*ratio)]
@@ -203,7 +275,7 @@ trainByRatio(ratio, data, featureNames, labelName)
 
 
 #%%
-# Let's analyze our dataset first
+# Let's do some analysis for other features first
 print(data['marketplace'].unique())
 print(data['product_category'].unique())
 print(data['vine'].unique())
@@ -216,7 +288,20 @@ plt.ylabel('Number of votes')
 plt.legend()
 plt.show()
 
+#%% [markdown]
+# As we can see from above, there are no big differences between these features.
+#
+# However, in problem 7 and problem 8, we both noticed that the distribution of our dataset is extremely unbalanced.
+# 
+# One realistic solution is to shuffle the dataset! And the results suddenly become promising. Congrats!
+
+
 #%%
+data = data.sample(frac=1)
+featureNames = ['theta_zero', 'star_rating', 'review_body_length']
+labelName = 'verified_purchase_int'
+ratio = 0.9
+trainByRatio(ratio, data, featureNames, labelName)
 
 
 #%%
