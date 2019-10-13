@@ -16,7 +16,7 @@ import numpy as np
 import pandas as pd
 
 # read data and drop NA
-data = pd.read_csv('./Homework1/amazon_reviews_us_Gift_Card_v1_00.tsv', delimiter='\t')
+data = pd.read_csv('./amazon_reviews_us_Gift_Card_v1_00.tsv', delimiter='\t')
 print("# of Rows before drop NA value: ")
 print(len(data))
 data = data.dropna()
@@ -29,6 +29,8 @@ print(len(data))
     # of Rows after drop NA value: 
     148304
 
+
+
 ```python
 plt.hist(data['star_rating'], bins=[0,1,2,3,4,5,6], rwidth=0.8)
 plt.xticks(range(0, 7))
@@ -38,7 +40,7 @@ plt.show()
 ```
 
 
-![svg](output_3_0.svg)
+![png](output_3_0.png)
 
 
 
@@ -215,7 +217,7 @@ plt.show()
 ```
 
 
-![svg](output_17_0.svg)
+![png](output_17_0.png)
 
 
  Yes. As we can see from the plot, the size of the training set makes a significant difference in testing performance. As we increase the training size, however, the test performance decreases. This isn't normal and may be due to the extremely unbalanced nature of this dataset. The star rating label may vary a lot between the training set and testing set as the ratio increases.
@@ -248,7 +250,7 @@ plt.show()
 ```
 
 
-![svg](output_19_0.svg)
+![png](output_19_0.png)
 
 
  # Task -- Classification
@@ -320,6 +322,8 @@ print(data['vine'].unique())
     ['N']
 
 
+ As we can see from above, there are no big differences between these features.
+
 
 ```python
 plt.hist(data['total_votes'], log=True, color='y',rwidth=0.8, label='Total Votes')
@@ -330,19 +334,12 @@ plt.show()
 ```
 
 
-![svg](output_25_0.svg)
+![png](output_26_0.png)
 
-
- As we can see from above, there are no big differences between these features.
-
- However, in problem 7 and problem 8, we both noticed that the distribution of our dataset is extremely unbalanced.
-
- One realistic solution is to shuffle the dataset! And the results suddenly become promising. Congrats!
 
 
 ```python
-data = data.sample(frac=1)
-featureNames = ['theta_zero', 'star_rating', 'review_body_length']
+featureNames = ['theta_zero', 'star_rating', 'review_body_length', 'total_votes', 'helpful_votes']
 labelName = 'verified_purchase_int'
 ratio = 0.9
 trainByRatio(ratio, data, featureNames, labelName)
@@ -350,11 +347,37 @@ trainByRatio(ratio, data, featureNames, labelName)
 
     ================ For ratio  0.9 ================
     ================ Training ================
-    Accuracy:  0.9106860563559671
+    Accuracy:  0.9512111063660815
     Proportion of reviews that are verified: 100.00%
-    Proportion of predictions that are positive: 99.66%
+    Proportion of predictions that are positive: 99.96%
     ================ Testing ================
-    Accuracy:  0.9089744454183805
+    Accuracy:  0.5601105791922325
     Proportion of reviews that are verified: 100.00%
-    Proportion of predictions that are positive: 99.60%
+    Proportion of predictions that are positive: 99.80%
+
+
+ By adding 'total_votes' and 'helpful_votes' as features, the accuracy increased a little bit. But that's not enough.
+
+ In problem 7 and problem 8, we both noticed that the distribution of our dataset is extremely unbalanced.
+
+ One realistic solution is to shuffle the dataset so that the distribution can be more balanced! And the results suddenly become promising. Congrats!
+
+
+```python
+data = data.sample(frac=1)
+featureNames = ['theta_zero', 'star_rating', 'review_body_length', 'total_votes', 'helpful_votes']
+labelName = 'verified_purchase_int'
+ratio = 0.9
+trainByRatio(ratio, data, featureNames, labelName)
+```
+
+    ================ For ratio  0.9 ================
+    ================ Training ================
+    Accuracy:  0.9102664958456017
+    Proportion of reviews that are verified: 100.00%
+    Proportion of predictions that are positive: 99.62%
+    ================ Testing ================
+    Accuracy:  0.9135594363158249
+    Proportion of reviews that are verified: 100.00%
+    Proportion of predictions that are positive: 99.58%
 
