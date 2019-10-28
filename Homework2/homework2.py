@@ -2,7 +2,7 @@
 @Author: Shihan Ran
 @Date: 2019-10-21 18:48:32
 @LastEditors: Shihan Ran
-@LastEditTime: 2019-10-27 18:24:10
+@LastEditTime: 2019-10-28 10:50:30
 @Email: rshcaroline@gmail.com
 @Software: VSCode
 @License: Copyright(C), UCSD
@@ -286,7 +286,7 @@ def regPipeline(Xtrain, Xvalid, Xtest, ytrain, yvalid, ytest, trainAcc, trainBer
     model = linear_model.LogisticRegression(C=1.0, class_weight='balanced')
     model.fit(Xtrain, ytrain)
     myEvaluation(model, Xtrain, ytrain, trainAcc, trainBer)
-    myEvaluation(model, Xvalid, yvali d, validAcc, validBer)
+    myEvaluation(model, Xvalid, yvalid, validAcc, validBer)
     myEvaluation(model, Xtest, ytest, testAcc, testBer)
 
 trainAcc, trainBer, validAcc, validBer, testAcc, testBer = [], [], [], [], [], []
