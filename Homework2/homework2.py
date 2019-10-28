@@ -2,7 +2,7 @@
 @Author: Shihan Ran
 @Date: 2019-10-21 18:48:32
 @LastEditors: Shihan Ran
-@LastEditTime: 2019-10-22 00:49:06
+@LastEditTime: 2019-10-27 17:07:03
 @Email: rshcaroline@gmail.com
 @Software: VSCode
 @License: Copyright(C), UCSD
@@ -62,9 +62,9 @@ def myEvaluation(model, X, y):
 
     # Accuracy
     correct = pred == y
-    print("Accuracy: %.2f" % np.mean(correct))
+    print("Accuracy: %.3f" % np.mean(correct))
     # BER
-    print("Balanced Error Rate: %.2f" %  (1 - 0.5 * (TP / (TP + FN) + TN / (TN + FP))))
+    print("Balanced Error Rate: %.3f" %  (1 - 0.5 * (TP / (TP + FN) + TN / (TN + FP))))
 
 X, y = myReadData("./Homework2/data/5year.arff")
 # define a logistic regression
@@ -150,24 +150,22 @@ def myEvaluation(model, X, y, acc, ber):
     acc.append(np.mean(correct))
     # BER
     ber.append(1 - 0.5 * (TP / (TP + FN) + TN / (TN + FP)))
-    return acc, ber
 
-def regPipeline(X, y, reg, trainAcc, trainBer, validAcc, validBer, testAcc, testBer):
+def regPipeline(X, y, regs, trainAcc, trainBer, validAcc, validBer, testAcc, testBer):
     X, y = myShuffle(X, y)
     Xtrain, Xvalid, Xtest, ytrain, yvalid, ytest = mySplits(X, y)
-    model = linear_model.LogisticRegression(C=reg, class_weight='balanced')
-    # fit a model
-    model.fit(Xtrain, ytrain)
-    trainAcc, trainBer = myEvaluation(model, Xtrain, ytrain, trainAcc, trainBer)
-    validAcc, validBer = myEvaluation(model, Xvalid, yvalid, validAcc, validBer)
-    testAcc, testBer = myEvaluation(model, Xtest, ytest, testAcc, testBer)
-    return trainAcc, trainBer, validAcc, validBer, testAcc, testBer
+    for reg in regs:
+        model = linear_model.LogisticRegression(C=reg, class_weight='balanced')
+        # fit a model
+        model.fit(Xtrain, ytrain)
+        myEvaluation(model, Xtrain, ytrain, trainAcc, trainBer)
+        myEvaluation(model, Xvalid, yvalid, validAcc, validBer)
+        myEvaluation(model, Xtest, ytest, testAcc, testBer)
 
 trainAcc, trainBer, validAcc, validBer, testAcc, testBer = [], [], [], [], [], []
 regs = [10**N for N in [-4, -3, -2, -1, 0, 1, 2, 3, 4]]
-for reg in regs:
-    X, y = myReadData("./Homework2/data/5year.arff")
-    trainAcc, trainBer, validAcc, validBer, testAcc, testBer = regPipeline(X, y, reg, trainAcc, trainBer, validAcc, validBer, testAcc, testBer)
+X, y = myReadData("./Homework2/data/5year.arff")
+regPipeline(X, y, regs, trainAcc, trainBer, validAcc, validBer, testAcc, testBer)
 
 plt.plot(regs, trainAcc, 'b-', label='Accuracy for Train set')
 plt.plot(regs, trainBer, 'b--', label='BER for Training set')
@@ -257,11 +255,11 @@ print(pca.components_[0])
 # Next we’ll train a model using a low-dimensional feature vector. By representing the data in the above
 # basis, i.e.:
 #
-# Xpca_train = numpy.matmul(Xtrain, pca.components_.T) 
+# Xpca_train = np.matmul(Xtrain, pca.components_.T) 
 #
-# Xpca_valid = numpy.matmul(Xvalid, pca.components_.T) 
+# Xpca_valid = np.matmul(Xvalid, pca.components_.T) 
 #
-# Xpca_test = numpy.matmul(Xtest, pca.components_.T)
+# Xpca_test = np.matmul(Xtest, pca.components_.T)
 #
 # compute the validation and test BER of a model that uses just the first N components (i.e., dimensions) for N = 5, 10, ... , 25, 30. Again use class weight=’balanced’ and C = 1.0 (2 marks).
 
@@ -270,27 +268,26 @@ print(pca.components_[0])
 def getLowDimension(N, Xtrain, Xvalid, Xtest):
     pca = PCA(n_components=N)
     pca.fit(Xtrain)
-    Xpca_train = numpy.matmul(Xtrain, pca.components_.T) 
-    Xpca_valid = numpy.matmul(Xvalid, pca.components_.T) 
-    Xpca_test = numpy.matmul(Xtest, pca.components_.T)
+    Xpca_train = np.matmul(Xtrain, pca.components_.T) 
+    Xpca_valid = np.matmul(Xvalid, pca.components_.T) 
+    Xpca_test = np.matmul(Xtest, pca.components_.T)
     return Xpca_train, Xpca_valid, Xpca_test
 
 def regPipeline(Xtrain, Xvalid, Xtest, ytrain, yvalid, ytest, trainAcc, trainBer, validAcc, validBer, testAcc, testBer):
     model = linear_model.LogisticRegression(C=1.0, class_weight='balanced')
     model.fit(Xtrain, ytrain)
-    trainAcc, trainBer = myEvaluation(model, Xtrain, ytrain, trainAcc, trainBer)
-    validAcc, validBer = myEvaluation(model, Xvalid, yvalid, validAcc, validBer)
-    testAcc, testBer = myEvaluation(model, Xtest, ytest, testAcc, testBer)
-    return trainAcc, trainBer, validAcc, validBer, testAcc, testBer
+    myEvaluation(model, Xtrain, ytrain, trainAcc, trainBer)
+    myEvaluation(model, Xvalid, yvalid, validAcc, validBer)
+    myEvaluation(model, Xtest, ytest, testAcc, testBer)
 
 trainAcc, trainBer, validAcc, validBer, testAcc, testBer = [], [], [], [], [], []
 Ns = list(range(5, 35, 5))
+X, y = myReadData("./Homework2/data/5year.arff")
+X, y = myShuffle(X, y)
+Xtrain, Xvalid, Xtest, ytrain, yvalid, ytest = mySplits(X, y)
 for N in Ns:
-    X, y = myReadData("./Homework2/data/5year.arff")
-    X, y = myShuffle(X, y)
-    Xtrain, Xvalid, Xtest, ytrain, yvalid, ytest = mySplits(X, y)
-    Xtrain, Xvalid, Xtest = getLowDimension(N, Xtrain, Xvalid, Xtest)
-    trainAcc, trainBer, validAcc, validBer, testAcc, testBer = regPipeline(Xtrain, Xvalid, Xtest, ytrain, yvalid, ytest, trainAcc, trainBer, validAcc, validBer, testAcc, testBer)
+    Xtrain_lowd, Xvalid_lowd, Xtest_lowd = getLowDimension(N, Xtrain, Xvalid, Xtest)
+    regPipeline(Xtrain_lowd, Xvalid_lowd, Xtest_lowd, ytrain, yvalid, ytest, trainAcc, trainBer, validAcc, validBer, testAcc, testBer)
 
 plt.plot(Ns, trainAcc, 'b-', label='Accuracy for Train set')
 plt.plot(Ns, trainBer, 'b--', label='BER for Training set')
